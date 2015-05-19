@@ -1,0 +1,33 @@
+#Thu May 14 15:30:02 CST 2015
+content_assist_proposals_foreground=0,0,0
+org.eclipse.jdt.ui.overrideannotation=true
+spelling_locale_initialized=true
+spelling_ignore_urls=true
+org.eclipse.jdt.ui.gettersetter.use.is=true
+spelling_ignore_non_letters=true
+org.eclipse.jdt.ui.text.templates_migrated=true
+spelling_ignore_ampersand_in_properties=true
+useAnnotationsPrefPage=true
+eclipse.preferences.version=1
+org.eclipse.jface.textfont=1|Consolas|12.0|0|WINDOWS|1|-16|0|0|0|400|0|0|0|0|3|2|1|49|Consolas;
+tabWidthPropagated=true
+org.eclipse.jdt.ui.exception.name=e
+org.eclipse.jdt.ui.editor.tab.width=
+spelling_ignore_single_letters=true
+fontPropagated=true
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="false" context\="gettercomment_context" deleted\="false" description\="Comment for getter method" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.gettercomment" name\="gettercomment">/**\r\n * @return the ${bare_field_name}\r\n */</template><template autoinsert\="false" context\="constructorcomment_context" deleted\="false" description\="Comment for created constructors" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.constructorcomment" name\="constructorcomment">/** \r\n\r\n* &lt;p&gt;Title\: &lt;/p&gt; \r\n\r\n* &lt;p&gt;Description\: &lt;/p&gt; \r\n\r\n* ${tags} \r\n\r\n*/ \r\n</template><template autoinsert\="false" context\="filecomment_context" deleted\="false" description\="Comment for created Java files" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.filecomment" name\="filecomment">/**  \r\n\r\n* @Title\: ${file_name} \r\n\r\n* @Package ${package_name} \r\n\r\n* @Description\: ${todo}\r\n\r\n* @author A18ccms A18ccms_gmail_com  \r\n\r\n* @date ${date} ${time} \r\n\r\n* @version V1.0  \r\n*/ \r\n</template><template autoinsert\="false" context\="typecomment_context" deleted\="false" description\="Comment for created types" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.typecomment" name\="typecomment">/** \r\n* @ClassName\: ${type_name} \r\n\r\n* @Description\: ${todo}\r\n\r\n* @author A18ccms a18ccms_gmail_com \r\n\r\n* @date ${date} ${time} \r\n\r\n* \r\n* ${tags} \r\n*/ \r\n\r\n</template><template autoinsert\="false" context\="fieldcomment_context" deleted\="false" description\="Comment for fields" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.fieldcomment" name\="fieldcomment">/** \r\n\r\n* @Fields ${field} \: ${todo}\r\n\r\n*/ </template><template autoinsert\="false" context\="methodcomment_context" deleted\="false" description\="Comment for non-overriding methods" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.methodcomment" name\="methodcomment">\r\n/** \r\n\r\n* @Title\: ${enclosing_method} \r\n\r\n* @Description\: ${todo} \r\n\r\n* @param ${tags}   \r\n\r\n* @return ${return_type}    \u8FD4\u56DE\u7C7B\u578B \r\n\r\n* @throws \r\n\r\n*/ \r\n</template><template autoinsert\="false" context\="overridecomment_context" deleted\="false" description\="Comment for overriding methods" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.overridecomment" name\="overridecomment">/* (\u975E Javadoc) \r\n\r\n* &lt;p&gt;Title\: ${enclosing_method}&lt;/p&gt; \r\n\r\n* &lt;p&gt;Description\: &lt;/p&gt; \r\n\r\n* ${tags} \r\n\r\n* ${see_to_overridden} \r\n\r\n*/ \r\n\r\n</template><template autoinsert\="false" context\="delegatecomment_context" deleted\="false" description\="Comment for delegate methods" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.delegatecomment" name\="delegatecomment">/** \r\n\r\n* ${tags} \r\n\r\n* ${see_to_target} \r\n\r\n*/ \r\n\r\n</template></templates>
+org.eclipse.jdt.ui.javadoclocations.migrated=true
+proposalOrderMigrated=true
+spelling_user_dictionary_encoding=GBK
+spelling_ignore_mixed=true
+spelling_ignore_java_strings=true
+org.eclipse.jdt.ui.formatterprofiles.version=12
+content_assist_proposals_background=255,255,255
+content_assist_number_of_computers=17
+spelling_ignore_digits=true
+spelling_ignore_upper=true
+useQuickDiffPrefPage=true
+org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.web.dao.core.support.AbstractDaoAdvice"><rhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"/></lhs><lhs name\="org.web.dao.core.DaoAdvice"><rhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"/></lhs><lhs name\="org.web.dao.core.ResultAdvice"><rhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"/></lhs><lhs name\="org.web.framework.service.Advice"><rhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"/></lhs><lhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"><rhs name\="org.web.dao.core.support.AbstractPoDaoAdvice"/></lhs><lhs name\="org.web.framework.action.support.TokenInteception"><rhs name\="org.web.framework.action.support.TokenInteception"/></lhs><lhs name\="org.web.framework.action.support.TokenInterceptor$LastAction"><rhs name\="org.web.framework.action.support.TokenInterceptor$LastAction"/></lhs><lhs name\="org.web.framework.action.support.TokenInterceptor$CacheAction"><rhs name\="org.web.framework.action.support.TokenInterceptor$CacheAction"/></lhs></history>
+spelling_ignore_sentence=true
+org.eclipse.jdt.ui.text.code_templates_migrated=true

@@ -1,0 +1,15 @@
+<beans>
+
+	<bean id="default">
+		<property name="service" class=""></property>
+		<property name="dao" class=""></property>
+		<property name="adapter" class=""></property>
+	</bean>
+	<!-- id即为voName -->
+	<!-- <bean id="user"> <service class="org.web.service.DefaultOperateService"></service> 
+		<dao class="org.web.dao.impl.StudentArticleDaoImpl"></dao> </bean> -->
+	<bean id="hazards">
+		<property name="dao" class="org.web.dao.core.support.HazardsDao"></property>
+		<property name="adapter" class="org.web.dao.core.support.HazardsProcessor"></property>
+	</bean>
+</beans>

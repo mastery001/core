@@ -1,0 +1,13 @@
+package org.web.framework.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.web.exception.ActionExecuteException;
+import org.web.framework.action.support.ActionMapping;
+
+public interface ActionMapper {
+	
+	ActionMapping getMappingFromActionName(HttpServletRequest request,
+			HttpServletResponse response) ;
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CommitComments>	<CommitComment>初始导入。</CommitComment>
+	<CommitComment>实现了仿Struts令牌机制</CommitComment>
+	<CommitComment>将Dao层的Connection改良，不是每次执行都开关连接！</CommitComment>
+	<CommitComment>将Dao层的Connection改良好，不是每次操作都开关连接！</CommitComment>
+	<CommitComment>修改成PreparedStatement进行数据库操作</CommitComment>
+</CommitComments>

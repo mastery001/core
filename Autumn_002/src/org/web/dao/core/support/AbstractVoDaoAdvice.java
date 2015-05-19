@@ -1,0 +1,206 @@
+package org.web.dao.core.support;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.web.dao.core.SqlConstant;
+import org.web.dao.core.help.Condition;
+import org.web.dao.core.help.SqlCache;
+import org.web.exception.DBException;
+import org.web.exception.VoProcessorException;
+import org.web.util.ExceptionUtil;
+
+import tool.mastery.core.BeanUtil;
+import tool.mastery.db.DBUtil;
+import tool.mastery.log.LogUtil;
+
+public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
+
+	protected VoResolve voResolve;
+	
+	protected static final AbstractPoDaoAdvice DAO = new AbstractPoDaoAdvice();
+	
+	public AbstractVoDaoAdvice() {
+		voResolve = buildVoResolve();
+	}
+	
+	@Override
+	public void open() {
+		super.open();
+		DAO.setConnection(conn);
+	}
+
+	@Override
+	public void save(Object entity) throws DBException {
+		Object[] poValue = this.initVoResolveToGetPoValue(entity);
+		for (int i = 0; i < poValue.length; i++) {
+			Object obj = super.get(poValue[i]);
+			if (obj != null) {
+				throw new DBException("此条数据已经存在，不能重复插入！");
+			}
+			super.save(poValue[i]);
+		}
+	}
+
+	@Override
+	public void update(Object entity) throws DBException {
+		Object[] poValue = this.initVoResolveToGetPoValue(entity);
+		for (int i = 0; i < poValue.length; i++) {
+			if (needPo(poValue[i])) {
+				super.update(poValue[i]);
+			}
+		}
+	}
+	
+	private boolean needPo(Object entity) {
+		Class<?>[] np = voResolve.getNeedPoObjectClass();
+		for (int i = 0; i < np.length; i++) {
+			if(entity.getClass() == np[i]) { 
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public void delete(Object entity) throws DBException {
+		Object[] poValue = this.initVoResolveToGetPoValue(entity);
+		for (int i = 0; i < poValue.length; i++) {
+			super.delete(poValue[i]);
+		}
+	}
+
+	protected Object[] initVoResolveToGetPoValue(Object entity) {
+		helpAdvice.convertVoToPo(voResolve, entity);
+		return voResolve.getPoObject();
+	}
+
+	
+	@Override
+	public List<Object> query(Class<?> entityClass, Object entity, Page page,
+			boolean flag) throws DBException {
+		List<Object> list = null;
+		try {
+			// 获得未加上查询条件的sql语句
+			String initSql = SqlCache.getVoSql(helpAdvice, voResolve);
+			// 获得完整的sql语句
+			String sql = this.getSql(initSql, voResolve.getVoClass(), page,
+					entity, flag);
+			LogUtil.getLogger().debug("current is execute multi table query method, sql statement is :"
+					+ sql);
+			//sqlAdvice.print(sql);
+			list = this.getResult(sql, voResolve.getVoClass());
+
+		} catch (VoProcessorException e) {
+			throw ExceptionUtil
+					.initNewCause(e, new DBException(e.getMessage()));
+		}
+		return list;
+
+	}
+
+	@Override
+	public List<Object> getResult(String sql, Class<?> entityClass)
+			throws DBException {
+		List<Object> list = new ArrayList<Object>();
+		PreparedStatement pstmt = DBUtil.getPstmt(conn, sql);
+		ResultSet rs = DBUtil.getRs(pstmt);
+		try {
+			list = helpAdvice.convertDataToObject(rs, entityClass);
+		} catch (Exception e) {
+			LOG.debug(e.getMessage() , e);
+		}
+		return list;
+	}
+
+	/**
+	 * // 获得完整的sql语句,添加了条件的
+	 * 
+	 * @param initSql
+	 * @param entityClass
+	 * @param page
+	 * @param vo
+	 * @param flag
+	 * @return
+	 */
+	protected String getSql(String initSql, Class<?> entityClass, Page page,
+			Object vo, boolean flag) {
+		StringBuilder sqlBuilder = new StringBuilder(initSql);
+		Condition condition = new Condition(vo);
+		if (condition.getCondition() != null) {
+			// 若已经包含了where条件
+			if (sqlBuilder.indexOf("where") >= 0 || sqlBuilder.indexOf("WHERE") >= 0) {
+				sqlBuilder.append(" and ");
+			} else {
+				sqlBuilder.append(" where ");
+			}
+			String[] conditions = condition.getCondition().split(SqlConstant.CONDITION_SPLIT);
+			String[] values = condition.getValue().split(SqlConstant.CONDITION_SPLIT);
+			// 获得查询条件
+			for (int i = 0; i < conditions.length; i++) {
+				sqlBuilder.append(this.getSurplusSql(initSql, entityClass, conditions[i],
+						values[i], flag));
+				sqlBuilder.append(" and ");
+			}
+			// 将多余的and删除
+			sqlBuilder.delete(sqlBuilder.lastIndexOf("and"), sqlBuilder.length());
+		}
+		return sqlBuilder.toString();
+	}
+
+	/**
+	 * 通过在sql语句中寻找真实的查询条件
+	 * 
+	 * @param sql
+	 * @param condition
+	 * @return
+	 */
+	private String getSurplusSql(String sql, Class<?> entityClass,
+			String condition, String value, boolean flag) {
+		String surplusSql = "";
+		String truthCondition = "";
+		String[] splitSql = sql.split(" ");
+		for (int i = 0; i < splitSql.length; i++) {
+			boolean flag1 = false;
+			String[] splitAgainSql = splitSql[i].split(",");
+			for (int j = 0; j < splitAgainSql.length; j++) {
+				if (splitAgainSql[j].indexOf(condition) >= 0) {
+					truthCondition = splitAgainSql[j];
+					flag1 = true;
+					break;
+				}
+			}
+			if (flag1) {
+				break;
+			}
+		}
+
+		if (BeanUtil.isNumber(entityClass, condition)) {
+			surplusSql = truthCondition + " =" + value;
+		} else {
+			if (flag) {
+				surplusSql = truthCondition + " like '%" + value + "%'";
+			} else {
+				surplusSql = truthCondition + " ='" + value + "'";
+			}
+
+		}
+		return surplusSql;
+	}
+
+	/**
+	 * 创建vo分解对象
+	 */
+	protected abstract VoResolve buildVoResolve();
+
+	/**
+	 * 判定哪些对象需要操作
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@Deprecated
+	protected abstract boolean operateCondition(Object obj);
+}

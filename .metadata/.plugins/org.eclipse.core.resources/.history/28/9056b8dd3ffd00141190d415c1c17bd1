@@ -1,0 +1,5 @@
+package tool.mastery.constant;
+
+public class ConfigurationFile {
+
+}

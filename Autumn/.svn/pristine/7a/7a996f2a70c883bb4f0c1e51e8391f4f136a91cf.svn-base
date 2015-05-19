@@ -1,0 +1,23 @@
+<beans>
+
+	<bean id="default">
+		<property name="service" class=""></property>
+		<property name="dao" class=""></property>
+		<property name="adapter" class=""></property>
+	</bean>
+	<!-- id即为voName -->
+	<!-- <bean id="user"> <service class="org.web.service.DefaultOperateService"></service> 
+		<dao class="org.web.dao.impl.StudentArticleDaoImpl"></dao> </bean> -->
+		
+	<bean id="alarm">
+		<property name="adapter" class="org.web.service.AlarmAdapter"></property>
+	</bean>
+
+	<bean id="vstandard">
+		<property name="dao" class="org.web.dao.impl.VStandardDaoImpl"></property>
+	</bean>
+
+	<bean id="LabTest">
+		<property name="dao" class="org.web.dao.impl.LabTestDaoImpl"></property>
+	</bean>
+</beans>
