@@ -50,8 +50,12 @@ public class ActionResult implements Result {
 		Config config = this.ac.getConfigurationProvider().getConfig(
 				action.getAction());
 		String result = null;
-		if(!StringUtil.StringIsNull(config.getActionConfig().getMethod())) {
-			Method method = action.getClass().getMethod(config.getActionConfig().getMethod());
+		String methodName = config.getActionConfig().getMethod();
+		if(!StringUtil.StringIsNull(methodName)) {
+			if(methodName.matches("\\d+")) {
+				methodName = config.getActionConfig().getSplitAction()[Integer.parseInt(methodName) - 1];
+			}
+			Method method = action.getClass().getMethod(methodName);
 			Object retVal = method.invoke(action);
 			if(!(retVal instanceof String)) {
 				throw new ActionExecuteException("method参数配置对应的方法对应的返回值必须为String类型");

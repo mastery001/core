@@ -21,6 +21,8 @@ public class ActionConfig{
 	private boolean validate_token;
 	
 	private String method;
+	
+	private String[] splitAction;
 
 	public ActionConfig() {
 		super();
@@ -84,6 +86,14 @@ public class ActionConfig{
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	public String[] getSplitAction() {
+		return splitAction;
+	}
+
+	public void setSplitAction(String[] splitAction) {
+		this.splitAction = splitAction;
 	}
 
 	@Override

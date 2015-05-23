@@ -36,7 +36,6 @@ public abstract class VoProcessor implements ObjectAdapter{
 	public List<Object> getVo(List<Object> vos)
 			throws VoProcessorException {
 		list = vos;
-		LOG.debug("whether the current is isReversed : " + isReverse);
 		// 判断传递进来的vos是否为空或者长度为0，如是则返回一个长度为0的list
 		if (vosIsEpmty(vos)) {
 			return list;

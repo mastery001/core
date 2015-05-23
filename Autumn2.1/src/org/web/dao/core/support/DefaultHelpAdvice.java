@@ -21,8 +21,12 @@ import org.web.dao.annotation.AnnotationUtil;
 import org.web.dao.annotation.Util;
 import org.web.dao.core.HelpAdvice;
 
+import tool.mastery.log.Logger;
+
 public class DefaultHelpAdvice implements HelpAdvice {
 
+	private static final Logger LOG = Logger.getLogger(DefaultHelpAdvice.class);
+	
 	@Override
 	public List<Object> convertDataToObject(ResultSet rs, Class<?> entityClass)
 			throws IllegalArgumentException, SQLException,
@@ -46,6 +50,10 @@ public class DefaultHelpAdvice implements HelpAdvice {
 
 				// 获得属性描述对象
 				PropertyDescriptor pd = beanMap.get(columnName);
+				if(pd == null) {
+					LOG.debug("the field " + columnName + "'s type is null !");
+					continue;
+				}
 				// 属性数据类型Integer,String,Float,Double(名称)
 				String fieldType = pd.getPropertyType().getName();
 				// 获取set方法

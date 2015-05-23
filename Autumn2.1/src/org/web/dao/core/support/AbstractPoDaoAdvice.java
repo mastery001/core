@@ -21,7 +21,7 @@ import tool.mastery.log.Logger;
 
 public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 
-	public static final Logger LOG = Logger
+	private static final Logger LOG = Logger
 			.getLogger(AbstractPoDaoAdvice.class);
 
 	private static final SqlAdvice sqlAdvice = GlobalSqlAdvice.getInstance();

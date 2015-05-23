@@ -123,11 +123,16 @@ public class DefaultActionInvocation implements ActionInvocation {
 						throw new ActionExecuteException(
 								"指定收集的对象不明确，请在action.xml中配置match参数！");
 					}
-					String[] splitAction = ActionHelper.processAction(name);
-					viewName = splitAction[ac.getMatch() - 1];
+					ac.setSplitAction(ActionHelper.processAction(name));
+					viewName = ac.getSplitAction()[ac.getMatch() - 1];
 					// TODO
-					request.setAttribute("executeOperateGrant",
-							splitAction[ac.getMatch()]);
+					if(ac.getSplitAction().length == ac.getMatch()) {
+						request.setAttribute("executeOperateGrant",
+								ac.getSplitAction()[ac.getMatch() - ac.getSplitAction().length]);
+					}else {
+						request.setAttribute("executeOperateGrant",
+								ac.getSplitAction()[ac.getMatch()]);
+					}
 				}
 				// 收集表单的服务类
 				FetchFormValueAdvice advice = new DefaultFetchFormValueAdvice(
@@ -149,5 +154,4 @@ public class DefaultActionInvocation implements ActionInvocation {
 		}
 
 	}
-
 }

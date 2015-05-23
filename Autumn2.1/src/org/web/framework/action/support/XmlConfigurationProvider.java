@@ -60,10 +60,22 @@ public class XmlConfigurationProvider implements ConfigurationProvider {
 				String validateToken = element.attributeValue("validate_token");
 				String method = element.attributeValue("method");
 				ActionConfig actionConfig = new ActionConfig(
-						RegUtil.processReg(name), clazz , method);
+						RegUtil.processReg(name), clazz);
 				if (!StringUtil.StringIsNull(match)) {
+					if(!method.matches(".+\\d+.+")) {
+						throw new AutumnException("match参数配置中时必须以配置为{数字}(此处数字为action配置时*对应的第几个*号)");
+					}
 					actionConfig.setMatch(Integer.parseInt(RegUtil
 							.deleteBraces(match)));
+				}
+				if (!StringUtil.StringIsNull(method)) {
+					if(!method.matches(".+\\d+.+")) {
+						actionConfig.setMethod(method);
+					}else {
+						actionConfig.setMethod(RegUtil
+								.deleteBraces(method));
+					}
+				
 				}
 				if(!StringUtil.StringIsNull(validateToken)) {
 					actionConfig.setValidate_token(Boolean.parseBoolean(validateToken));

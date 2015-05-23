@@ -72,7 +72,7 @@ public class Condition {
 					fieldValue = ((Date) fieldValue).toLocaleString();
 				}
 			} catch (Exception e) {
-				LOG.debug(e);
+				LOG.debug(e.getMessage() , e);
 				continue;
 			}
 			if (fieldValue != null && !fieldValue.toString().trim().equals("")) {

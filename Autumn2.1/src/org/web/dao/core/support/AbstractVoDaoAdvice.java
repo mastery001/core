@@ -11,21 +11,22 @@ import org.web.dao.core.help.Condition;
 import org.web.dao.core.help.SqlCache;
 import org.web.exception.DBException;
 import org.web.exception.VoProcessorException;
-import org.web.util.ExceptionUtil;
 
 import tool.mastery.core.BeanUtil;
-import tool.mastery.log.LogUtil;
+import tool.mastery.log.Logger;
 
 public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 
+	private static final Logger LOG = Logger.getLogger(AbstractVoDaoAdvice.class);
+	
 	protected VoResolve voResolve;
-	
+
 	protected static final AbstractPoDaoAdvice DAO = new AbstractPoDaoAdvice();
-	
+
 	public AbstractVoDaoAdvice() {
 		voResolve = buildVoResolve();
 	}
-	
+
 	@Override
 	public void open() {
 		super.open();
@@ -34,7 +35,26 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 
 	@Override
 	public void save(Object entity) throws DBException {
-		Object[] poValue = this.initVoResolveToGetPoValue(entity);
+		save(initVoResolveToGetPoValue(entity));
+	}
+
+	@Override
+	public void update(Object entity) throws DBException {
+		update(initVoResolveToGetPoValue(entity));
+	}
+
+	
+	@Override
+	public void delete(Object entity) throws DBException {
+		delete(initVoResolveToGetPoValue(entity));
+	}
+
+	protected Object[] initVoResolveToGetPoValue(Object entity) {
+		helpAdvice.convertVoToPo(voResolve, entity);
+		return voResolve.getPoObject();
+	}
+
+	protected void save(Object[] poValue) throws DBException {
 		for (int i = 0; i < poValue.length; i++) {
 			Object obj = super.get(poValue[i]);
 			if (obj != null) {
@@ -44,39 +64,39 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 		}
 	}
 
-	@Override
-	public void update(Object entity) throws DBException {
-		Object[] poValue = this.initVoResolveToGetPoValue(entity);
-		for (int i = 0; i < poValue.length; i++) {
-			if (needPo(poValue[i])) {
-				super.update(poValue[i]);
+	protected void update(Object[] poValue) throws DBException{
+		for (Object po : poValue) {
+			if (needPo(po)) {
+				super.update(po);
+			}
+		}
+	}
+
+	protected void delete(Object[] poValue) throws DBException {
+		for (Object po : poValue) {
+			if (needPo(po)) {
+				super.delete(po);
 			}
 		}
 	}
 	
+	/** 
+	* @Title: needPo 
+	* @Description: 判断该PO是否需要 
+	* @param @param entity
+	* @param @return   
+	* @return boolean    返回类型 
+	* @throws 
+	*/ 
 	private boolean needPo(Object entity) {
-		Class<?>[] np = voResolve.getNeedPoObjectClass();
+		Class<?>[] np = whenUpdateOrDeleteUnNecessaryClasses();
 		for (int i = 0; i < np.length; i++) {
-			if(entity.getClass() == np[i]) { 
-				return true;
+			if (entity.getClass() == np[i]) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
-	
-	@Override
-	public void delete(Object entity) throws DBException {
-		Object[] poValue = this.initVoResolveToGetPoValue(entity);
-		for (int i = 0; i < poValue.length; i++) {
-			super.delete(poValue[i]);
-		}
-	}
-
-	protected Object[] initVoResolveToGetPoValue(Object entity) {
-		helpAdvice.convertVoToPo(voResolve, entity);
-		return voResolve.getPoObject();
-	}
-
 	
 	@Override
 	public List<Object> query(Class<?> entityClass, Object entity, Page page,
@@ -88,14 +108,15 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 			// 获得完整的sql语句
 			String sql = this.getSql(initSql, voResolve.getVoClass(), page,
 					entity, flag);
-			LogUtil.getLogger().debug("current is execute multi table query method, sql statement is :"
-					+ sql);
-			//sqlAdvice.print(sql);
+			LOG.debug(
+					"current is execute multi table query method, sql statement is :"
+							+ sql);
+			// sqlAdvice.print(sql);
 			list = this.getResult(sql, voResolve.getVoClass());
 
 		} catch (VoProcessorException e) {
-			throw ExceptionUtil
-					.initNewCause(e, new DBException(e.getMessage()));
+			LOG.debug(e.getMessage() , e);
+			throw new DBException(e.getMessage());
 		}
 		return list;
 
@@ -110,7 +131,7 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 		try {
 			list = helpAdvice.convertDataToObject(rs, entityClass);
 		} catch (Exception e) {
-			LOG.debug(e.getMessage() , e);
+			LOG.debug(e.getMessage(), e);
 		}
 		return list;
 	}
@@ -131,21 +152,25 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 		Condition condition = new Condition(vo);
 		if (condition.getCondition() != null) {
 			// 若已经包含了where条件
-			if (sqlBuilder.indexOf("where") >= 0 || sqlBuilder.indexOf("WHERE") >= 0) {
+			if (sqlBuilder.indexOf("where") >= 0
+					|| sqlBuilder.indexOf("WHERE") >= 0) {
 				sqlBuilder.append(" and ");
 			} else {
 				sqlBuilder.append(" where ");
 			}
-			String[] conditions = condition.getCondition().split(SqlConstant.CONDITION_SPLIT);
-			String[] values = condition.getValue().split(SqlConstant.CONDITION_SPLIT);
+			String[] conditions = condition.getCondition().split(
+					SqlConstant.CONDITION_SPLIT);
+			String[] values = condition.getValue().split(
+					SqlConstant.CONDITION_SPLIT);
 			// 获得查询条件
 			for (int i = 0; i < conditions.length; i++) {
-				sqlBuilder.append(this.getSurplusSql(initSql, entityClass, conditions[i],
-						values[i], flag));
+				sqlBuilder.append(this.getSurplusSql(initSql, entityClass,
+						conditions[i], values[i], flag));
 				sqlBuilder.append(" and ");
 			}
 			// 将多余的and删除
-			sqlBuilder.delete(sqlBuilder.lastIndexOf("and"), sqlBuilder.length());
+			sqlBuilder.delete(sqlBuilder.lastIndexOf("and"),
+					sqlBuilder.length());
 		}
 		return sqlBuilder.toString();
 	}
@@ -202,5 +227,16 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 	 * @return
 	 */
 	@Deprecated
-	protected abstract boolean operateCondition(Object obj);
+	protected boolean operateCondition(Object obj) {
+		return false;
+	}
+	
+	/** 
+	* @Title: whenUpdateOrDeleteNeedObject 
+	* @Description: 当修改或删除时不需要的对象 
+	* @param @return   
+	* @return Object    返回类型 
+	* @throws 
+	*/ 
+	protected abstract Class<?>[] whenUpdateOrDeleteUnNecessaryClasses();
 }

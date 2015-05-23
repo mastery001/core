@@ -1,9 +1,0 @@
-package org.web.framework.action.support;
-
-/**
- * @author Administrator
- *
- */
-class LastAction {
-
-}

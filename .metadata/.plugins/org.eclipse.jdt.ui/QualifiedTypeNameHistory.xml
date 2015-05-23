@@ -30,10 +30,11 @@
 <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
 <fullyQualifiedTypeName name="org.web.framework.action.support.TokenInterceptor.CacheAction"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
-<fullyQualifiedTypeName name="org.web.exception.ActionExecuteException"/>
 <fullyQualifiedTypeName name="javax.servlet.ServletException"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="org.web.framework.support.DefaultBeansConfig"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+<fullyQualifiedTypeName name="org.web.exception.ActionExecuteException"/>
+<fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
 </qualifiedTypeNameHistroy>
