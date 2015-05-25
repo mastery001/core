@@ -62,7 +62,7 @@ public class XmlConfigurationProvider implements ConfigurationProvider {
 				ActionConfig actionConfig = new ActionConfig(
 						RegUtil.processReg(name), clazz);
 				if (!StringUtil.StringIsNull(match)) {
-					if(!method.matches(".+\\d+.+")) {
+					if(!match.matches(".+\\d+.+")) {
 						throw new AutumnException("match参数配置中时必须以配置为{数字}(此处数字为action配置时*对应的第几个*号)");
 					}
 					actionConfig.setMatch(Integer.parseInt(RegUtil

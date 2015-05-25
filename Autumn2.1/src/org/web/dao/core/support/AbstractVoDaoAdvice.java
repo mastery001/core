@@ -108,6 +108,10 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 			// 获得完整的sql语句
 			String sql = this.getSql(initSql, voResolve.getVoClass(), page,
 					entity, flag);
+			String condition = addWhereOrOrderCondition();
+			if(condition != null) {
+				sql += condition;
+			}
 			LOG.debug(
 					"current is execute multi table query method, sql statement is :"
 							+ sql);
@@ -120,6 +124,10 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 		}
 		return list;
 
+	}
+
+	protected String addWhereOrOrderCondition() {
+		return null;
 	}
 
 	@Override

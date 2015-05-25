@@ -26,7 +26,7 @@ import tool.mastery.log.Logger;
 public class DefaultHelpAdvice implements HelpAdvice {
 
 	private static final Logger LOG = Logger.getLogger(DefaultHelpAdvice.class);
-	
+
 	@Override
 	public List<Object> convertDataToObject(ResultSet rs, Class<?> entityClass)
 			throws IllegalArgumentException, SQLException,
@@ -50,9 +50,10 @@ public class DefaultHelpAdvice implements HelpAdvice {
 
 				// 获得属性描述对象
 				PropertyDescriptor pd = beanMap.get(columnName);
-				if(pd == null) {
+				if (pd == null) {
 					LOG.debug("the field " + columnName + "'s type is null !");
-					continue;
+					throw new SQLException("请检查" + columnName + "字段在"
+							+ entityClass.getName() + "类中是否存在");
 				}
 				// 属性数据类型Integer,String,Float,Double(名称)
 				String fieldType = pd.getPropertyType().getName();
@@ -90,7 +91,6 @@ public class DefaultHelpAdvice implements HelpAdvice {
 			Class<?>[] needPoObjectClass) {
 		return this.getVoResolve(allPo, voClass, needPoObjectClass, null);
 	}
-	
 
 	@Override
 	public VoResolve getVoResolve(Class<?>[] allPo, Class<?> voClass,
@@ -99,17 +99,18 @@ public class DefaultHelpAdvice implements HelpAdvice {
 		voResolve.setVoClass(voClass);
 		voResolve.setNeedPoObjectClass(needPoObjectClass);
 		voResolve.setAllPo(allPo);
-		if(ignoreField == null) {
+		if (ignoreField == null) {
 			ignoreField = new HashMap<Class<?>, String>();
 		}
 		Map<String, List<String>> fieldMap = new HashMap<String, List<String>>();
 		for (int i = 0; i < allPo.length; i++) {
-			String[] arrayIgnoreFields = getArrayIgnoreFields(ignoreField, allPo[i]);
+			String[] arrayIgnoreFields = getArrayIgnoreFields(ignoreField,
+					allPo[i]);
 			Field[] poFields = allPo[i].getDeclaredFields();
 			List<String> fields = new ArrayList<String>();
 			for (Field field : poFields) {
 				String fieldName = field.getName();
-				if(isIgnore(arrayIgnoreFields , fieldName)) {
+				if (isIgnore(arrayIgnoreFields, fieldName)) {
 					continue;
 				}
 				try {
@@ -127,25 +128,26 @@ public class DefaultHelpAdvice implements HelpAdvice {
 		return voResolve;
 	}
 
-	private String[] getArrayIgnoreFields(Map<Class<?>, String> ignoreField , Class<?> entityClass) {
+	private String[] getArrayIgnoreFields(Map<Class<?>, String> ignoreField,
+			Class<?> entityClass) {
 		String ignoreFields = ignoreField.get(entityClass);
-		if(ignoreFields != null) {
-			return ignoreFields.split(","); 
+		if (ignoreFields != null) {
+			return ignoreFields.split(",");
 		}
 		return null;
 	}
-	
-	private boolean isIgnore(String[] arrayIgnoreFields , String fieldName) {
-		if(arrayIgnoreFields != null) {
-			for(String arrayIgnoreField : arrayIgnoreFields) {
-				if(arrayIgnoreField.equalsIgnoreCase(fieldName)) {
+
+	private boolean isIgnore(String[] arrayIgnoreFields, String fieldName) {
+		if (arrayIgnoreFields != null) {
+			for (String arrayIgnoreField : arrayIgnoreFields) {
+				if (arrayIgnoreField.equalsIgnoreCase(fieldName)) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 将vo对象的值转换到对应的po对象中
 	 * 
