@@ -1,8 +1,9 @@
-#Fri May 22 08:13:16 CST 2015
+#Tue May 26 11:25:39 CST 2015
 content_assist_proposals_foreground=0,0,0
 org.eclipse.jdt.ui.overrideannotation=true
 spelling_locale_initialized=true
 spelling_ignore_urls=true
+command=E\:\\program\\jdk\\bin\\javadoc.exe
 org.eclipse.jdt.ui.gettersetter.use.is=true
 spelling_ignore_non_letters=true
 org.eclipse.jdt.ui.text.templates_migrated=true

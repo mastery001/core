@@ -13,6 +13,7 @@ import org.web.framework.action.ActionInvocation;
 import org.web.framework.action.Result;
 import org.web.framework.action.config.Config;
 import org.web.framework.action.config.ResultConfig;
+import org.web.servlet.Action;
 import org.web.servlet.ActionSupport;
 import org.web.util.RegUtil;
 
@@ -51,22 +52,31 @@ public class ActionResult implements Result {
 				action.getAction());
 		String result = null;
 		String methodName = config.getActionConfig().getMethod();
-		if(!StringUtil.StringIsNull(methodName)) {
-			if(methodName.matches("\\d+")) {
-				methodName = config.getActionConfig().getSplitAction()[Integer.parseInt(methodName) - 1];
+		if (!StringUtil.StringIsNull(methodName)) {
+			if (methodName.matches("\\d+")) {
+				methodName = config.getActionConfig().getSplitAction()[Integer
+						.parseInt(methodName) - 1];
 			}
 			Method method = action.getClass().getMethod(methodName);
 			Object retVal = method.invoke(action);
-			if(!(retVal instanceof String)) {
-				throw new ActionExecuteException("method参数配置对应的方法对应的返回值必须为String类型");
+			if (!(retVal instanceof String)) {
+				throw new ActionExecuteException(
+						"method参数配置对应的方法对应的返回值必须为String类型");
 			}
-			result = (String)retVal;
-		}else {
+			result = (String) retVal;
+		} else {
 			result = action.execute();
+		}
+		if(result == null) {
+			return;
 		}
 		List<ResultConfig> list = config.getResultConfig();
 		for (int i = 0; i < list.size(); i++) {
 			ResultConfig rc = list.get(i);
+			// 若配置为none则不进行跳转
+			if (Action.NONE.equals(rc.getName())) {
+				return;
+			}
 			if (result.equalsIgnoreCase(rc.getName())) {
 				// 获得跳转路径类型
 				String type = rc.getTypeName();
@@ -74,9 +84,7 @@ public class ActionResult implements Result {
 				String dispatcherPath = rc.getDispatcherPath();
 				dispatcherPath = process(dispatcherPath, action.getAction());
 				if (!type.equalsIgnoreCase(ConfigLibrary.DEFAULT_RESULT_TYPE)) {
-					if (!StringUtil.StringIsNull(dispatcherPath)) {
-						response.sendRedirect(dispatcherPath);
-					}
+					response.sendRedirect(dispatcherPath);
 				} else {
 					if (request.getAttribute("info") == null) {
 						request.setAttribute("info",
@@ -102,6 +110,9 @@ public class ActionResult implements Result {
 	 * @return
 	 */
 	private String process(String dispatcherPath, String action) {
+		if (dispatcherPath.indexOf("{") == -1) {
+			return dispatcherPath;
+		}
 		StringBuilder sb = new StringBuilder();
 		String[] processAction = ActionHelper.processAction(action);
 		char[] chs = dispatcherPath.toCharArray();

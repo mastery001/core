@@ -24,13 +24,16 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 	protected static final AbstractPoDaoAdvice DAO = new AbstractPoDaoAdvice();
 
 	public AbstractVoDaoAdvice() {
+		open();
 		voResolve = buildVoResolve();
 	}
 
 	@Override
 	public void open() {
-		super.open();
-		DAO.setConnection(conn);
+		if(this.conn == null) {
+			super.open();
+			DAO.setConnection(conn);
+		}
 	}
 
 	@Override

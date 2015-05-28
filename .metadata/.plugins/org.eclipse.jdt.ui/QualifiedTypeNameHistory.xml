@@ -37,4 +37,5 @@
 <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
 <fullyQualifiedTypeName name="org.web.exception.ActionExecuteException"/>
 <fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
+<fullyQualifiedTypeName name="org.web.servlet.Action"/>
 </qualifiedTypeNameHistroy>

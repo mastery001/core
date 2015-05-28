@@ -11,6 +11,8 @@ public interface Action {
 	
 	public static final String INPUT = "input";
 	
+	public static final String NONE = "none";
+	
 	/**
 	 * 执行action
 	 * @return	
