@@ -37,7 +37,7 @@ class SetPreparedStatement {
 			int columnType = changePropertiesTypeToInt(cm.getColumnType()
 					.toLowerCase());
 			// 获取此字段的值
-						Object parameter = beanMap.get(cm.getColumnName());
+			Object parameter = beanMap.get(cm.getColumnName());
 			/*System.out.println("index is : " + index + ",columnType is "+ columnType + "=_="
 					+ cm.getColumnName() + "'value is : " + parameter);*/
 			if (parameter == null) {

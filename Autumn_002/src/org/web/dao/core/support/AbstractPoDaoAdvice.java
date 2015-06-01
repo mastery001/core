@@ -61,8 +61,7 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 					+ sql);
 			DaoOptemplate.getInstance().executeUpdate(conn, sql, list, beanMap);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			LOG.debug(e);
+			LOG.debug(e.getMessage() ,e);
 			throw new DBException(e.getMessage());
 			// TODO Auto-generated catch block
 		}
@@ -72,7 +71,6 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 	public void update(Object entity) throws DBException {
 		// 用于记录执行sql返回的次数
 		try {
-			Connection conn = DBUtil.getConnection();
 			String sql = sqlAdvice.buildUpdateSql(entity, conn);
 			Statement stmt = conn.createStatement();
 			// TODO

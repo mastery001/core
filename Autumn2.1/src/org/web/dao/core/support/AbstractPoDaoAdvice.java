@@ -72,7 +72,6 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 	public void update(Object entity) throws DBException {
 		// 用于记录执行sql返回的次数
 		try {
-			Connection conn = DBUtil.getConnection();
 			String sql = sqlAdvice.buildUpdateSql(entity, conn);
 			Statement stmt = conn.createStatement();
 			// TODO

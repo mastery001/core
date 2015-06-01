@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="55" version="2.0">
+<workbench progressCount="27" version="2.0">
 <workbenchAdvisor/>
 <window height="738" maximized="true" width="1024" x="50" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -8,24 +8,24 @@
 </perspectiveBar>
 <coolbarLayout>
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="228" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="266" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="com.genuitec.eclipse.j2eedt.core.ejb" itemType="typeToolBarContribution" x="53" y="22"/>
+<coolItem id="com.genuitec.eclipse.j2eedt.core.ejb" itemType="typeToolBarContribution" x="55" y="22"/>
 <coolItem id="com.genuitec.eclipse.uml.actions" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="com.genuitec.eclipse.web20.actionset" itemType="typeToolBarContribution" x="38" y="22"/>
-<coolItem id="com.genuitec.eclipse.ws.xfire.actions" itemType="typeToolBarContribution" x="91" y="22"/>
-<coolItem id="com.genuitec.myeclipse.actions.deploytools" itemType="typeToolBarContribution" x="99" y="22"/>
+<coolItem id="com.genuitec.eclipse.ws.xfire.actions" itemType="typeToolBarContribution" x="95" y="22"/>
+<coolItem id="com.genuitec.myeclipse.actions.deploytools" itemType="typeToolBarContribution" x="101" y="22"/>
 <coolItem id="com.genuitec.myeclipse.actions.desktop" itemType="typeToolBarContribution" x="61" y="22"/>
-<coolItem id="com.genuitec.myeclipse.actions.reporting" itemType="typeToolBarContribution" x="76" y="22"/>
-<coolItem id="com.genuitec.myeclipse.actions.screencapture" itemType="typeToolBarContribution" x="53" y="22"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="167" y="22"/>
-<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="107" y="22"/>
+<coolItem id="com.genuitec.myeclipse.actions.reporting" itemType="typeToolBarContribution" x="78" y="22"/>
+<coolItem id="com.genuitec.myeclipse.actions.screencapture" itemType="typeToolBarContribution" x="55" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="175" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="78" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="101" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="198" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jst.jsp.core.jspsource.source" itemType="typePlaceholder" x="-1" y="-1"/>
@@ -35,7 +35,7 @@
 <coolItem id="com.genuitec.eclipse.springframework.springconfigeditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.jboss.tools.common.propertieseditor.PropertiesCompoundEditor" itemType="typePlaceholder" x="38" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -44,31 +44,10 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ActionResult.java" partName="ActionResult.java" path="E:/eclipse_work/core/Autumn2.1/src/org/web/framework/action/support/ActionResult.java" title="ActionResult.java" tooltip="Autumn2.1/src/org/web/framework/action/support/ActionResult.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Autumn2.1/src/org/web/framework/action/support/ActionResult.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1048" selectionTopPixel="249"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Action.java" partName="Action.java" path="E:/eclipse_work/core/Autumn2.1/src/org/web/servlet/Action.java" title="Action.java" tooltip="Autumn2.1/src/org/web/servlet/Action.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Autumn2.1/src/org/web/servlet/Action.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="256" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractVoDaoAdvice.java" partName="AbstractVoDaoAdvice.java" path="E:/eclipse_work/core/Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java" title="AbstractVoDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="902" selectionTopPixel="171"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ActionSupport.java" partName="ActionSupport.java" path="E:/eclipse_work/core/Autumn2.1/src/org/web/servlet/ActionSupport.java" title="ActionSupport.java" tooltip="Autumn2.1/src/org/web/servlet/ActionSupport.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Autumn2.1/src/org/web/servlet/ActionSupport.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="430" selectionTopPixel="285"/>
-</editor>
 </editors>
 <views>
 <view id="com.genuitec.eclipse.ui.HTMLView" partName="Web Browser"/>
@@ -331,137 +310,12 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/framework/action/support/ActionResult.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/servlet/ActionSupport.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/framework/action/ActionResultParam.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/servlet/Action.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/dao/core/support/AbstractDaoAdvice.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/dao/core/support/DefaultHelpAdvice.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/framework/ConfigLibrary.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Autumn2.1/src/org/web/framework/action/support/ActionResult.java"/>
-</editors>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="3170" y="0"/>
-</item>
-<item historyLabel="ActionSupport.java" index="1">
-<position/>
-</item>
-<item historyLabel="ActionResultParam.java" index="2">
-<position/>
-</item>
-<item historyLabel="ActionSupport.java" index="1">
-<position/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="3196" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="306" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="3196" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2216" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="55" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2216" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="47" y="6"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2217" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="47" y="6"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2242" y="0"/>
-</item>
-<item historyLabel="Action.java" index="3">
-<position info="not_deleted" x="256" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2351" y="0"/>
-</item>
-<item historyLabel="ActionSupport.java" index="1">
-<position info="not_deleted" x="1169" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2248" y="0"/>
-</item>
-<item historyLabel="AbstractVoDaoAdvice.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="AbstractVoDaoAdvice.java" index="4">
-<position/>
-</item>
-<item historyLabel="AbstractDaoAdvice.java" index="5">
-<position info="not_deleted" x="611" y="0"/>
-</item>
-<item historyLabel="AbstractVoDaoAdvice.java" index="4">
-<position/>
-</item>
-<item historyLabel="AbstractVoDaoAdvice.java" index="4">
-<position info="not_deleted" x="940" y="0"/>
-</item>
-<item historyLabel="DefaultHelpAdvice.java" index="6">
-<position info="not_deleted" x="1241" y="0"/>
-</item>
-<item historyLabel="AbstractVoDaoAdvice.java" index="4">
-<position info="not_deleted" x="902" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2521" y="0"/>
-</item>
-<item historyLabel="ConfigLibrary.java" index="7">
-<position info="not_deleted" x="481" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="0">
-<position info="not_deleted" x="2718" y="0"/>
-</item>
-<item historyLabel="ActionSupport.java" index="1">
-<position info="not_deleted" x="719" y="0"/>
-</item>
-<item historyLabel="ActionResultParam.java" index="2">
-<position info="not_deleted" x="605" y="0"/>
-</item>
-<item historyLabel="ActionSupport.java" index="1">
-<position info="not_deleted" x="719" y="0"/>
-</item>
-<item historyLabel="ActionResult.java" index="8">
-<position info="not_deleted" x="2759" y="0"/>
-</item>
-<item active="true" historyLabel="ActionResult.java" index="8">
-<position info="not_deleted" x="2051" y="0"/>
-</item>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="topleft"/>
-<trimItem IMemento.internal.id="bottomleft"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@19f5d89"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@1ddd83c"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -469,11 +323,37 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@201d67"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractPoDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractPoDaoAdvice.java">
+<persistable path="/Autumn2.1/src/org/web/dao/core/support/AbstractPoDaoAdvice.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractVoDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java">
+<persistable path="/Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractPoDaoAdvice.java" tooltip="Autumn_002/src/org/web/dao/core/support/AbstractPoDaoAdvice.java">
+<persistable path="/Autumn_002/src/org/web/dao/core/support/AbstractPoDaoAdvice.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractVoDaoAdvice.java" tooltip="Autumn_002/src/org/web/dao/core/support/AbstractVoDaoAdvice.java">
+<persistable path="/Autumn_002/src/org/web/dao/core/support/AbstractVoDaoAdvice.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultSqlAdvice.java" tooltip="Autumn_001/src/org/web/dao/core/support/DefaultSqlAdvice.java">
+<persistable path="/Autumn_001/src/org/web/dao/core/support/DefaultSqlAdvice.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetPreparedStatement.java" tooltip="Autumn2.1/src/org/web/dao/core/help/SetPreparedStatement.java">
+<persistable path="/Autumn2.1/src/org/web/dao/core/help/SetPreparedStatement.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DBUtil.java" tooltip="Autumn2.1/src/org/database/db/DBUtil.java">
+<persistable path="/Autumn2.1/src/org/database/db/DBUtil.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Constant.java" tooltip="Autumn2.1/src/org/web/framework/Constant.java">
+<persistable path="/Autumn2.1/src/org/web/framework/Constant.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DefaultFetchFormValueAdvice.java" tooltip="Autumn2.1/src/org/web/servlet/support/DefaultFetchFormValueAdvice.java">
+<persistable path="/Autumn2.1/src/org/web/servlet/support/DefaultFetchFormValueAdvice.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ActionResultParam.java" tooltip="Autumn2.1/src/org/web/framework/action/ActionResultParam.java">
 <persistable path="/Autumn2.1/src/org/web/framework/action/ActionResultParam.java"/>
 </file>
@@ -489,35 +369,8 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractDaoAdvice.java">
 <persistable path="/Autumn2.1/src/org/web/dao/core/support/AbstractDaoAdvice.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractVoDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java">
-<persistable path="/Autumn2.1/src/org/web/dao/core/support/AbstractVoDaoAdvice.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Action.java" tooltip="Autumn2.1/src/org/web/servlet/Action.java">
 <persistable path="/Autumn2.1/src/org/web/servlet/Action.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ActionResult.java" tooltip="Autumn2.1/src/org/web/framework/action/support/ActionResult.java">
-<persistable path="/Autumn2.1/src/org/web/framework/action/support/ActionResult.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="QueryService.java" tooltip="Autumn2.1/src/org/web/service/QueryService.java">
-<persistable path="/Autumn2.1/src/org/web/service/QueryService.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AbstractPoDaoAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/support/AbstractPoDaoAdvice.java">
-<persistable path="/Autumn2.1/src/org/web/dao/core/support/AbstractPoDaoAdvice.java"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="StringUtil.class" tooltip="tool.mastery.core.StringUtil">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Autumn2.1/E:\/eclipse_work\/core\/Autumn2.1\/WebRoot\/WEB-INF\/lib\/ToolClass.jar&lt;tool.mastery.core(StringUtil.class"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="XmlConfigurationProvider.java" tooltip="Autumn2.1/src/org/web/framework/action/support/XmlConfigurationProvider.java">
-<persistable path="/Autumn2.1/src/org/web/framework/action/support/XmlConfigurationProvider.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HelpAdvice.java" tooltip="Autumn2.1/src/org/web/dao/core/HelpAdvice.java">
-<persistable path="/Autumn2.1/src/org/web/dao/core/HelpAdvice.java"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Reference.class" tooltip="java.lang.ref.Reference">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Autumn2.1/E:\/program\/Myeclipse\/Common\/binary\/com.sun.java.jdk.win32.x86_1.6.0.013\/jre\/lib\/rt.jar&lt;java.lang.ref(Reference.class"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="FeatureDescriptor.class" tooltip="java.beans.FeatureDescriptor">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Autumn2.1/E:\/program\/Myeclipse\/Common\/binary\/com.sun.java.jdk.win32.x86_1.6.0.013\/jre\/lib\/rt.jar&lt;java.beans(FeatureDescriptor.class"/>
 </file>
 </mruList>
 </workbench>

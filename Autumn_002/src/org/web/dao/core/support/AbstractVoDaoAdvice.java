@@ -10,7 +10,6 @@ import org.web.dao.core.help.Condition;
 import org.web.dao.core.help.SqlCache;
 import org.web.exception.DBException;
 import org.web.exception.VoProcessorException;
-import org.web.util.ExceptionUtil;
 
 import tool.mastery.core.BeanUtil;
 import tool.mastery.db.DBUtil;
@@ -94,8 +93,8 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 			list = this.getResult(sql, voResolve.getVoClass());
 
 		} catch (VoProcessorException e) {
-			throw ExceptionUtil
-					.initNewCause(e, new DBException(e.getMessage()));
+			LOG.debug(e.getMessage() ,e);
+			throw new DBException(e.getMessage());
 		}
 		return list;
 

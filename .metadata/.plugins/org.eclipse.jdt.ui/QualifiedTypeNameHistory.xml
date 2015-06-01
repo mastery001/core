@@ -36,6 +36,6 @@
 <fullyQualifiedTypeName name="org.web.framework.support.DefaultBeansConfig"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Method"/>
 <fullyQualifiedTypeName name="org.web.exception.ActionExecuteException"/>
-<fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
 <fullyQualifiedTypeName name="org.web.servlet.Action"/>
+<fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
 </qualifiedTypeNameHistroy>

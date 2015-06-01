@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+import tool.mastery.log.Logger;
+
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
@@ -15,6 +17,9 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
  * 
  */
 public class DBUtil {
+	
+	private static final Logger Log = Logger.getLogger(DBUtil.class);
+	
 	private static Connection conn = null;
 	// Druid数据源变量
 	private static DruidDataSource druidDataSource = null;
@@ -35,7 +40,7 @@ public class DBUtil {
 			druidDataSource = (DruidDataSource) DruidDataSourceFactory
 					.createDataSource(prop);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 	}
 
@@ -65,7 +70,7 @@ public class DBUtil {
 			// conn = DriverManager.getConnection(url, "root", "root");
 			conn = druidDataSource.getConnection();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 
 		return conn;
@@ -83,7 +88,7 @@ public class DBUtil {
 				con.close();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 
 	}
@@ -94,7 +99,7 @@ public class DBUtil {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 	}
 
@@ -119,8 +124,7 @@ public class DBUtil {
 		try {
 			pstmt = conn.prepareStatement(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 		return pstmt;
 	}
@@ -138,8 +142,7 @@ public class DBUtil {
 		try {
 			pstmt = conn.prepareStatement(sql, autoGenerateKeys);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 		return pstmt;
 	}
@@ -163,8 +166,7 @@ public class DBUtil {
 		try {
 			rs = pstmt.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 		return rs;
 	}
@@ -187,8 +189,7 @@ public class DBUtil {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.debug(e.getMessage() , e);
 			}
 			rs = null;
 		}
@@ -211,8 +212,7 @@ public class DBUtil {
 			try {
 				pstmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.debug(e.getMessage() , e);
 			}
 			pstmt = null;
 		}
@@ -235,8 +235,7 @@ public class DBUtil {
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.debug(e.getMessage() , e);
 			}
 			stmt = null;
 		}
@@ -266,8 +265,7 @@ public class DBUtil {
 			Statement stmt = conn.createStatement();
 			flag = stmt.execute(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.debug(e.getMessage() , e);
 		}
 		return flag;
 	}
