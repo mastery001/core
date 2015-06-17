@@ -75,12 +75,11 @@ public class XmlConfigurationProvider implements ConfigurationProvider {
 						actionConfig.setMethod(RegUtil
 								.deleteBraces(method));
 					}
-				
 				}
 				if(!StringUtil.StringIsNull(validateToken)) {
 					actionConfig.setValidate_token(Boolean.parseBoolean(validateToken));
 				}
-				config.setActionConfig(actionConfig);
+				// 配置result
 				List<Element> currentResults = element.elements("result");
 				List<ResultConfig> results = new ArrayList<ResultConfig>();
 				for (Element result : currentResults) {
@@ -97,6 +96,7 @@ public class XmlConfigurationProvider implements ConfigurationProvider {
 							type, dispatcher);
 					results.add(resultConfig);
 				}
+				config.setActionConfig(actionConfig);
 				config.setResultConfig(results);
 				map.put(actionConfig.getName(), config);
 			}

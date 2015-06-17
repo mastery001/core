@@ -4,20 +4,15 @@ import java.util.List;
 
 import org.web.dao.core.DaoAdvice;
 import org.web.exception.DBException;
-import org.web.framework.Configuration;
-import org.web.framework.service.CacheMaster;
 
 public class ProxyDaoAdvice implements DaoAdvice {
-
-	@SuppressWarnings("unused")
-	private static final CacheMaster CM = Configuration.getCacheMaster();
 
 	private DaoAdvice advice;
 
 	public ProxyDaoAdvice(DaoAdvice advice) {
 		this.advice = advice;
 	}
-
+/*
 	@Override
 	public List<Object> getResult(String sql, Class<?> eneityClass)
 			throws DBException {
@@ -29,7 +24,7 @@ public class ProxyDaoAdvice implements DaoAdvice {
 		} finally {
 			close();
 		}
-	}
+	}*/
 
 	@Override
 	public void save(Object entity) throws DBException {

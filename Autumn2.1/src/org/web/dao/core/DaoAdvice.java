@@ -10,7 +10,7 @@ import org.web.exception.DBException;
  * @author Administrator
  *
  */
-public interface DaoAdvice extends ResultAdvice{
+public interface DaoAdvice{
 	
 	void open();
 	

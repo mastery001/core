@@ -17,12 +17,13 @@ public interface SqlAdvice extends PrintAdvice {
 	
 	/**
 	 * 构建保存sql语句
+	 * @param beanMap 
 	 * @param entity
 	 * @param stmt
 	 * @return
 	 * @throws SQLException
 	 */
-	String buildSaveSql(String sql , List<ColumnMeta> list , String[] primaryKeyNames ) throws SQLException;
+	String buildSaveSql(String sql , List<ColumnMeta> list , String[] primaryKeyNames, Map<String, Object> beanMap ) throws SQLException;
 
 	/**
 	 * 构建修改sql语句
@@ -41,7 +42,7 @@ public interface SqlAdvice extends PrintAdvice {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	String buildDeleteSql(String sql , String[] primaryKeyNames, Object entity) throws SQLException,
+	String buildDeleteSql(Object entity , Connection conn) throws SQLException,
 			Exception;
 
 	/**
@@ -91,4 +92,5 @@ public interface SqlAdvice extends PrintAdvice {
 	 * @param isPrint
 	 */
 	void allowPrintSql(boolean isPrint);
+
 }

@@ -15,6 +15,7 @@ import org.web.framework.action.config.Config;
 import org.web.framework.action.config.ResultConfig;
 import org.web.servlet.Action;
 import org.web.servlet.ActionSupport;
+import org.web.servlet.support.HttpServletRequestWrapper;
 import org.web.util.RegUtil;
 
 import tool.mastery.core.StringUtil;
@@ -67,7 +68,7 @@ public class ActionResult implements Result {
 		} else {
 			result = action.execute();
 		}
-		if(result == null) {
+		if (result == null) {
 			return;
 		}
 		List<ResultConfig> list = config.getResultConfig();
@@ -95,6 +96,19 @@ public class ActionResult implements Result {
 						TokenInterceptor.getInstance().makeToken(request,
 								action.getAction(), dispatcherPath);
 					}
+					// 判断是否需要移除参数
+					if (action.isRemoveParam()) {
+						if (action.getRequestWrapper() == null) {
+							request = new HttpServletRequestWrapper(request,
+									action.getIgnoreParams());
+						} else {
+							request = action.getRequestWrapper();
+						}
+						if(action.getProperties() != null && action.getProperties().size() != 0) {
+							((HttpServletRequestWrapper)request).setParams(action.getProperties());
+						}
+					}
+					
 					request.getRequestDispatcher(dispatcherPath).forward(
 							request, response);
 				}

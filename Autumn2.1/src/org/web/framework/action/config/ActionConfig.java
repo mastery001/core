@@ -1,6 +1,7 @@
 package org.web.framework.action.config;
 
 
+
 /**
  * Action的属性的配置文件
  * @author mastery
@@ -23,7 +24,7 @@ public class ActionConfig{
 	private String method;
 	
 	private String[] splitAction;
-
+	
 	public ActionConfig() {
 		super();
 	}

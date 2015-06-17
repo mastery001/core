@@ -21,7 +21,7 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 	
 	protected VoResolve voResolve;
 
-	protected static final AbstractPoDaoAdvice DAO = new AbstractPoDaoAdvice();
+	protected final AbstractPoDaoAdvice DAO = new AbstractPoDaoAdvice();
 
 	public AbstractVoDaoAdvice() {
 		open();
@@ -34,6 +34,12 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 			super.open();
 			DAO.setConnection(conn);
 		}
+	}
+	
+	@Override
+	public void close() {
+		super.close();
+		DAO.close();
 	}
 
 	@Override
@@ -133,7 +139,6 @@ public abstract class AbstractVoDaoAdvice extends AbstractPoDaoAdvice {
 		return null;
 	}
 
-	@Override
 	public List<Object> getResult(String sql, Class<?> entityClass)
 			throws DBException {
 		List<Object> list = new ArrayList<Object>();

@@ -1,6 +1,7 @@
 package org.web.dao.core.support;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.database.db.DBUtil;
 import org.web.dao.core.DaoAdvice;
@@ -33,7 +34,13 @@ public abstract class AbstractDaoAdvice implements DaoAdvice {
 
 	@Override
 	public void close() {
-		DBUtil.close();
+		if(conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
+			conn = null;
+		}
 	}
 
 	public AbstractDaoAdvice() {

@@ -33,9 +33,9 @@ public class RebuildActionDocument implements RebuildDocument {
 			
 			if (element.getName().equalsIgnoreCase("action")) {
 				Element newElement = createNode(retElement, element , "action");
-				List<Element> results = element.elements("result");
+				List<Element> results = element.elements();
 				for(Element result : results) {
-					createNode(newElement, result , "result");
+					createNode(newElement, result , result.getName());
 				}
 			}else if (element.getName().equalsIgnoreCase("include")){
 				Element rootElement1 = ReadXmlUtils

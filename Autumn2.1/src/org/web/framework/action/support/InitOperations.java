@@ -9,6 +9,7 @@ import org.web.framework.service.CacheMaster;
 import org.web.framework.support.XmlBeanFactory;
 
 import tool.mastery.core.ClassUtil;
+import tool.mastery.core.StringUtil;
 
 public class InitOperations {
 
@@ -47,12 +48,13 @@ public class InitOperations {
 	 */
 	private void initConfiguration() throws Exception {
 		String cacheClassName = config.getInitParameter("cache");
-		Object bean = null;
-		bean = ClassUtil.getObjectByName(cacheClassName);
-		if (bean instanceof CacheMaster) {
-			Configuration.setCacheMaster((CacheMaster) bean);
-		} else {
-			throw new ServletException("配置的类不是CacheMaster的实现类！请重新配置！");
+		if(!StringUtil.StringIsNull(cacheClassName)) {
+			Object bean = ClassUtil.getObjectByName(cacheClassName);
+			if (bean instanceof CacheMaster) {
+				Configuration.setCacheMaster((CacheMaster) bean);
+			} else {
+				throw new ServletException("配置的类不是CacheMaster的实现类！请重新配置！");
+			}
 		}
 		Configuration.setBeanFactory(new XmlBeanFactory());
 	}

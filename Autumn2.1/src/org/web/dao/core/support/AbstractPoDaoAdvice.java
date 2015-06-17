@@ -37,6 +37,7 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 		this.conn = conn;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void save(Object entity) throws DBException {
 		try {
@@ -56,10 +57,10 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 			List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(
 					tableName, conn);
 			String sql = "insert into " + tableName;
-			sql = sqlAdvice.buildSaveSql(sql, list, primaryKeyNames);
+			sql = sqlAdvice.buildSaveSql(sql, list, primaryKeyNames , beanMap);
 			LOG.debug("current is execute save method, sql statement is :"
 					+ sql);
-			DaoOptemplate.getInstance().executeUpdate(conn, sql, list, beanMap);
+			DaoOptemplate.getInstance().executeUpdate(conn, sql, (List<ColumnMeta>)beanMap.get("VALUE_LIST"), beanMap);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			LOG.debug(e);
@@ -93,16 +94,8 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 	@Override
 	public void delete(Object entity) throws DBException {
 		try {
-			AnnotationUtil annotationUtil = AnnotationUtil.getInstance();
-			// 获取表名
-			String tableName = annotationUtil.getAnnotationTableName(entity
-					.getClass());
-			// 获取主键名
-			String[] primaryKeyNames = annotationUtil.getPrimaryKey(entity
-					.getClass());
-			String sql = "delete from " + tableName;
-			sql = sqlAdvice.buildDeleteSql(sql, primaryKeyNames, entity);
-			LOG.debug("current is execute save method, sql statement is :"
+			String sql = sqlAdvice.buildDeleteSql(entity ,conn);
+			LOG.debug("current is execute delete method, sql statement is :"
 					+ sql);
 			conn.createStatement().executeUpdate(sql);
 		} catch (Exception e) {
@@ -164,8 +157,7 @@ public class AbstractPoDaoAdvice extends AbstractDaoAdvice {
 		return getResult(sql, entityClass);
 	}
 
-	@Override
-	public List<Object> getResult(String sql, Class<?> entityClass)
+	private List<Object> getResult(String sql, Class<?> entityClass)
 			throws DBException {
 		List<Object> list = new ArrayList<Object>();
 		Statement stmt = null;

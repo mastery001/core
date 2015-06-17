@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,20 +61,27 @@ public class DaoOptemplate {
 	public List<ColumnMeta> refresh(String tableName, Connection conn)
 			throws SQLException {
 		if (!cache.containsKey(tableName)) {
-			String sql = "select * from " + tableName + " where 1=0";
-			ResultSet rs = conn.createStatement().executeQuery(sql);
-			List<ColumnMeta> list = new ArrayList<ColumnMeta>();
-			ColumnMeta cm = new ColumnMeta();
-			// ResultSetMetaData对象是描述表的结构(字段名,字段类型,可容纳的长度)
-			ResultSetMetaData rsmd = rs.getMetaData();
-			for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-				cm = (ColumnMeta) cm.clone();
-				cm.setColumnName(rsmd.getColumnName(i).toLowerCase());
-				cm.setColumnType(rsmd.getColumnTypeName(i).toLowerCase());
-				cm.setAutoIncrement(rsmd.isAutoIncrement(i));
-				list.add(cm);
+			Statement stmt = null;
+			try {
+				String sql = "select * from " + tableName + " where 1=0";
+				stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				List<ColumnMeta> list = new ArrayList<ColumnMeta>();
+				ColumnMeta cm = new ColumnMeta();
+				// ResultSetMetaData对象是描述表的结构(字段名,字段类型,可容纳的长度)
+				ResultSetMetaData rsmd = rs.getMetaData();
+				for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+					cm = (ColumnMeta) cm.clone();
+					cm.setColumnName(rsmd.getColumnName(i).toLowerCase());
+					cm.setColumnType(rsmd.getColumnTypeName(i).toLowerCase());
+					cm.setAutoIncrement(rsmd.isAutoIncrement(i));
+					list.add(cm);
+				}
+				cache.put(tableName, list);
+				DBUtil.close(rs);
+			}finally {
+				DBUtil.close(stmt);
 			}
-			cache.put(tableName, list);
 		}
 		return cache.get(tableName);
 	}

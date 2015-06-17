@@ -8,6 +8,8 @@
 	<action name="*\.query" class="org.web.action.QueryAction"
 		match="{1}" validate_token="true">
 		<result name="success">{1}.jsp</result>
+		<interceptor name="request" class="">
+		</interceptor>
 	</action>
 	<action name="*_*" class="org.web.action.OperateAction" match="{1}">
 		<result name="success">{1}_{2}.jsp</result>

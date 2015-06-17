@@ -127,6 +127,7 @@ public abstract class OperateService extends AbstractService implements
 			LOG.debug(e.getMessage(), e);
 		} catch (InvocationTargetException e) {
 			LOG.debug(e.getMessage(), e);
+			throw new ErrorException(e.getMessage());
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -37,26 +38,32 @@ class DefaultSqlAdvice implements SqlAdvice {
 	}
 
 	@Override
-	public String buildSaveSql(String sql , List<ColumnMeta> list , String[] primaryKeyNames)
-			throws SQLException {
+	public String buildSaveSql(String sql, List<ColumnMeta> list,
+			String[] primaryKeyNames, Map<String, Object> beanMap ) throws SQLException {
 		String insertSql = "";
+		// 用于保存值不为null的字段
+		List<ColumnMeta> valueList = new ArrayList<ColumnMeta>();
 		// 获得表中一共有几个字段
 		int columnCount = list.size();
 		// 组装字段
-		StringBuffer columnBuffer = new StringBuffer(sql
-				+ "(");
+		StringBuffer columnBuffer = new StringBuffer(sql + "(");
 		StringBuffer valueBuffer = new StringBuffer(" values(");
 		for (int i = 0; i < columnCount; i++) {
 			ColumnMeta cm = list.get(i);
 			// 获取列名
 			String columnName = cm.getColumnName();
+			if(beanMap.get(columnName) == null) {
+				continue;
+			}
+			valueList.add(cm);
 			columnBuffer.append(columnName + ",");
-			if(cm.isAutoIncrement()) {
+			if (cm.isAutoIncrement()) {
 				valueBuffer.append("null,");
-			}else {
+			} else {
 				valueBuffer.append("?,");
 			}
 		}
+		beanMap.put("VALUE_LIST", valueList);
 		columnBuffer.deleteCharAt(columnBuffer.lastIndexOf(","));
 		columnBuffer.append(")");
 		valueBuffer.deleteCharAt(valueBuffer.lastIndexOf(","));
@@ -64,6 +71,7 @@ class DefaultSqlAdvice implements SqlAdvice {
 		insertSql = columnBuffer.toString() + valueBuffer.toString();
 		return insertSql;
 	}
+
 	@Override
 	public String buildUpdateSql(Object entity, Connection conn)
 			throws SQLException {
@@ -81,7 +89,8 @@ class DefaultSqlAdvice implements SqlAdvice {
 		 * select * from tablename where 1=0的意义 此语句的作用是: 打开此记录集,但并不从记录集中读取任何记录
 		 * 直观点说就是,为保护记录集数据,仅做打开,是只做插入记录时用到
 		 */
-		List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(tableName, conn);
+		List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(tableName,
+				conn);
 
 		int columnCount = list.size();
 
@@ -98,17 +107,11 @@ class DefaultSqlAdvice implements SqlAdvice {
 			String columnName = cm.getColumnName();
 			String columnType = cm.getColumnType();
 			Object columnValue = beanMap.get(columnName);
-			if(columnValue == null) {
+			if (columnValue == null) {
 				continue;
 			}
 			if (isPrimaryKey(columnName, primaryKeyNames)) {
-				// 当主键为数字的类型时
-				if (isNumberType(columnType)) {
-					whereCondition += word + columnName + "=" + columnValue;
-				} else {
-					whereCondition += word + columnName + "='" + columnValue
-							+ "'";
-				}
+				whereCondition += word + getConditionSyntax(columnName, columnType, columnValue);
 				if (primaryKeyNames.length > 1) {
 					word = " and ";
 				}
@@ -117,34 +120,14 @@ class DefaultSqlAdvice implements SqlAdvice {
 					flag = true;
 					// 若为最后一个
 					if (i == columnCount) {
-						// 若为数字
-						if (isNumberType(columnType)) {
-							valueBuffer.append(columnName + "=" + columnValue);
-						} else {
-							if (columnType.indexOf("date") == 0) {
-								columnValue = new Util()
-										.transferDateToString((java.util.Date) columnValue);
-							}
-							valueBuffer.append(columnName + "='" + columnValue
-									+ "'");
-						}
+						valueBuffer.append(getConditionSyntax(columnName, columnType, columnValue));
 					} else {
-						if (isNumberType(columnType)) {
-							valueBuffer.append(columnName + "=" + columnValue
-									+ ",");
-						} else {
-							if (columnType.indexOf("date") == 0) {
-								columnValue = new Util()
-										.transferDateToString((java.util.Date) columnValue);
-							}
-							valueBuffer.append(columnName + "='" + columnValue
-									+ "',");
-						}
+						valueBuffer.append(getConditionSyntax(columnName, columnType, columnValue) + ",");
 					}
 				}
 			}
 		}
-		if(!flag) {
+		if (!flag) {
 			return null;
 		}
 		// 获取最后一个逗号到总长度的大小
@@ -183,45 +166,90 @@ class DefaultSqlAdvice implements SqlAdvice {
 	}
 
 	@Override
-	public String buildDeleteSql(String sql , String[] primaryKeyNames, Object entity)
+	public String buildDeleteSql(Object entity, Connection conn)
 			throws SQLException, Exception {
-		String valueBuffer = new String(sql);
+		AnnotationUtil annotationUtil = AnnotationUtil.getInstance();
+		// 获取表名
+		String tableName = annotationUtil.getAnnotationTableName(entity
+				.getClass());
+		// 获取主键名
+		String[] primaryKeyNames = annotationUtil.getPrimaryKey(entity
+				.getClass());
+		// 获取实体类存放的属性名和值
+		Map<String, Object> beanMap = annotationUtil.getBeanInfo(entity);
+		String sql = "delete from " + tableName;
 		String whereCondition = "";
+		boolean flag = false;
 		/**
 		 * 此处用于判断实体的存在性 若存在则SQL语句组装完成，将where条件中的id补入
 		 */
 		String word = " where ";
-		for(String columnName : primaryKeyNames) {
-			String columnType = entity.getClass().getDeclaredField(columnName).getType().getSimpleName();
-			// 获得读取的方法
-			String readMethodName = "get"
-					+ columnName.substring(0, 1).toUpperCase()
-					+ columnName.substring(1).toLowerCase();
-			Object columnValue = entity.getClass().getMethod(readMethodName)
-					.invoke(entity);
-			if(columnValue == null) {
+		for (String columnName : primaryKeyNames) {
+			String columnType = entity.getClass().getDeclaredField(columnName)
+					.getType().getSimpleName();
+			Object columnValue = beanMap.get(columnName);
+			if (columnValue == null) {
+				flag = true;
 				continue;
 			}
-			if (isNumberType(columnType)) {
-				whereCondition += word
-						+ columnName
-						+ "="
-						+columnValue;
-			} else {
-				whereCondition += word
-						+ columnName
-						+ "='"
-						+ columnValue + "'";
-			}
+			whereCondition += word + getConditionSyntax(columnName, columnType, columnValue);
 			if (primaryKeyNames.length > 1) {
 				word = " and ";
 			}
 		}
-		if(!whereCondition.contains("where")) {
+		// 如果主键的值为null，则通过普通条件查询
+		if(flag) {
+			List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(tableName,
+					conn);
+			int columnCount = list.size();
+			for(int i = 0 ; i < columnCount; i ++) {
+				ColumnMeta cm = list.get(i);
+				String columnName = cm.getColumnName();
+				if(isPrimaryKey(columnName, primaryKeyNames)) {
+					continue;
+				}
+				String columnType = cm.getColumnType();
+				Object columnValue = beanMap.get(columnName);
+				if (columnValue == null) {
+					continue;
+				}
+				whereCondition += word + getConditionSyntax(columnName, columnType, columnValue);
+				if (whereCondition.contains("where")) {
+					word = " and ";
+				}
+			}
+		}
+		if (!whereCondition.contains("where")) {
 			throw new SQLException("查询的主键的值不能为空！");
 		}
-		sql = valueBuffer.toString() + whereCondition;
+		sql += whereCondition;
 		return sql;
+	}
+
+	/** 
+	* @Title: buildConditionSyntax 
+	* @Description: 得到形如 u_id = "123"的语句 
+	* @param @param columnName
+	* @param @param columnType
+	* @param @param columnValue
+	* @param @return   
+	* @return String    返回类型 
+	* @throws 
+	*/ 
+	private String getConditionSyntax(String columnName, String columnType,
+			Object columnValue) {
+		String condition = "";
+		// 当主键为数字的类型时
+		if (isNumberType(columnType)) {
+			condition = columnName + "=" + columnValue;
+		} else {
+			if (columnType.indexOf("date") == 0) {
+				columnValue = new Util()
+						.transferDateToString((java.util.Date) columnValue);
+			}
+			condition = columnName + "='" + columnValue + "'";
+		}
+		return condition;
 	}
 
 	@Override
@@ -238,7 +266,8 @@ class DefaultSqlAdvice implements SqlAdvice {
 			// 获取表名
 			String tableName = annotationUtil
 					.getAnnotationTableName(entityClass);
-			List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(tableName, conn);
+			List<ColumnMeta> list = DaoOptemplate.getInstance().refresh(
+					tableName, conn);
 			StringBuilder sb = new StringBuilder("select ");
 			for (int i = 0; i < list.size(); i++) {
 				ColumnMeta cm = list.get(i);
@@ -387,6 +416,4 @@ class DefaultSqlAdvice implements SqlAdvice {
 		return sql;
 	}
 
-	
-	
 }

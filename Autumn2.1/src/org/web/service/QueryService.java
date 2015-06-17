@@ -10,10 +10,10 @@ import org.web.exception.DBException;
 import org.web.exception.ErrorException;
 import org.web.service.support.Caretaker;
 import org.web.service.support.Originator;
-import org.web.util.ExceptionUtil;
 import org.web.util.QueryValueUtils;
 
 import tool.mastery.core.ClassUtil;
+import tool.mastery.log.Logger;
 
 /**
  * 对数据查询的统一处理类
@@ -24,12 +24,14 @@ import tool.mastery.core.ClassUtil;
  */
 public class QueryService extends AbstractService {
 
+	private static final Logger LOG = Logger.getLogger(QueryService.class);
+	
 	private final Originator o = new Originator();
-	
+
 	private static final Caretaker caretaker = new Caretaker();
-	
+
 	private static List<Object> allList;
-	
+
 	// 是否缓存数据
 	private boolean isCache;
 
@@ -38,7 +40,7 @@ public class QueryService extends AbstractService {
 
 	public QueryService(String name) {
 		super(name);
-		if(caretaker.getDm(name) != null) {
+		if (caretaker.getDm(name) != null) {
 			allList = caretaker.getDm(name).getList();
 		}
 	}
@@ -47,9 +49,9 @@ public class QueryService extends AbstractService {
 		this(name);
 		this.flag = flag;
 	}
-	
-	public QueryService(String name,  boolean flag, boolean isCache) {
-		this(name , flag);
+
+	public QueryService(String name, boolean flag, boolean isCache) {
+		this(name, flag);
 		this.isCache = isCache;
 	}
 
@@ -90,13 +92,13 @@ public class QueryService extends AbstractService {
 				DaoAdvice sd = DaoAdviceFactory.getDao(name);
 				allList = processList(sd.query(voClass, vo, page, flag));
 			} catch (DBException e) {
-				throw ExceptionUtil.initNewCause(e,
-						new ErrorException(e.getMessage()));
+				LOG.debug(e.getMessage() , e);
+				throw new ErrorException(e.getMessage());
 			}
-			if(vo == null && isCache) {
+			if (vo == null && isCache) {
 				// 原发器初始化list
 				o.set(allList);
-				caretaker.setDm(name , o.createMemento());
+				caretaker.setDm(name, o.createMemento());
 			}
 		}
 		page.setCount(allList.size());
@@ -115,9 +117,9 @@ public class QueryService extends AbstractService {
 		}
 		return page;
 	}
-	
+
 	public static List<Object> getCurrentMementoList(String name) {
-		if(caretaker.getDm(name) != null) {
+		if (caretaker.getDm(name) != null) {
 			return caretaker.getDm(name).getList();
 		}
 		return null;
