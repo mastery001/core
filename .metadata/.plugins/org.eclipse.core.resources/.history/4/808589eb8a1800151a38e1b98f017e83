@@ -1,0 +1,5 @@
+package org.web.po;
+
+public class User {
+
+}

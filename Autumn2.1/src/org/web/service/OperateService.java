@@ -1,7 +1,5 @@
 package org.web.service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import org.web.access.factory.DaoAdviceFactory;
@@ -26,30 +24,6 @@ public abstract class OperateService extends AbstractService implements
 	private static final Logger LOG = Logger.getLogger(OperateService.class);
 
 	protected DaoAdvice dao;
-
-	protected void add(Object entity) throws ErrorException {
-		try {
-			dao.save(entity);
-		} catch (DBException e) {
-			throw new ErrorException(e.getMessage());
-		}
-	}
-
-	protected void update(Object entity) throws ErrorException {
-		try {
-			dao.save(entity);
-		} catch (DBException e) {
-			throw new ErrorException(e.getMessage());
-		}
-	}
-
-	protected void delete(Object entity) throws ErrorException {
-		try {
-			dao.save(entity);
-		} catch (DBException e) {
-			throw new ErrorException(e.getMessage());
-		}
-	}
 
 	protected void add(List<Object> list) throws ErrorException {
 		String errorMessage = "";
@@ -97,41 +71,24 @@ public abstract class OperateService extends AbstractService implements
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> void invokeMethod(T t, String operate)
+	private <T> void invokeMethod(Object entity, String operate)
 			throws ErrorException, BeanInitializationException {
-		try {
-			Method method = null;
-			if(t instanceof List) {
-				method = getMethod(0, this.getClass(), operate, List.class);
-				if (method == null) {
-					throw new NullPointerException(operate + "方法不存在");
-				}
-				method.invoke(this, processList((List<Object>)t));
-			}else {
-				method = getMethod(0, this.getClass(), operate, Object.class);
-				if (method == null) {
-					throw new NullPointerException(operate + "方法不存在");
-				}
-				method.invoke(this,
-						processList(CollectionUtil.convertObjectToList((Object)t))
-								.get(0));
-			}
-		
-		} catch (SecurityException e) {
-			LOG.debug(e.getMessage(), e);
-		} catch (NoSuchMethodException e) {
-			LOG.debug(e.getMessage(), e);
-		} catch (IllegalArgumentException e) {
-			LOG.debug(e.getMessage(), e);
-		} catch (IllegalAccessException e) {
-			LOG.debug(e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-			LOG.debug(e.getMessage(), e);
-			throw new ErrorException(e.getMessage());
+		List<Object> list = null;
+		if(!(entity instanceof List)) {
+			list = CollectionUtil.convertObjectToList(entity);
+		}else {
+			list = (List<Object>)entity;
+		}
+		list = processList(list);
+		if("add".equals(operate)) {
+			this.add(list);
+		}else if("update".equals(operate)) {
+			this.update(list);
+		}else {
+			this.delete(list);
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void execute(Object entity, String operate) throws ErrorException,
 			BeanInitializationException {
@@ -139,45 +96,9 @@ public abstract class OperateService extends AbstractService implements
 			throw new NullPointerException("执行execute方法时entity参数不能为空");
 		}
 		dao = DaoAdviceFactory.getDao(name);
-		if (entity instanceof List) {
-			List<Object> list = null;
-			try {
-				list = (List<Object>) entity;
-			} catch (Exception e) {
-				LOG.debug("执行的对象是list时泛型只能是Object类型");
-			}
-			invokeMethod(list , operate);
-			return ;
-		}
 		invokeMethod(entity , operate);
 	}
 
-	/**
-	 * @Title: getMethod
-	 * @Description: 获取当前类或者父类中的指定方法
-	 * @param @param count 限定只能查找当前类或者其父类
-	 * @param @param clazz 当前类的字节码
-	 * @param @param methodName 方法名
-	 * @param @param parameterTypes 方法参数
-	 * @param @return
-	 * @param @throws SecurityException
-	 * @param @throws NoSuchMethodException
-	 * @return Method 返回类型
-	 * @throws
-	 */
-	private Method getMethod(int count, Class<?> clazz, String methodName,
-			Class<?>... parameterTypes) throws SecurityException,
-			NoSuchMethodException {
-		Method method = null;
-		try {
-			if (count < 2) {
-				method = clazz.getDeclaredMethod(methodName, parameterTypes);
-			}
-		} catch (Exception e) {
-			return getMethod(++count, clazz.getSuperclass(), methodName,
-					parameterTypes);
-		}
-		return method;
-	}
+	
 
 }

@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.web.framework.action.support.InitOperations;
 import org.web.servlet.FileUploadAdvice;
+import org.web.util.FileFormatHelper;
 import org.web.util.IPTimeStamp;
 
 import tool.mastery.core.CollectionUtil;
@@ -190,10 +191,10 @@ class DefaultFileUploadAdvice implements FileUploadAdvice {
 	 */
 	@SuppressWarnings("unused")
 	private Map<String, String> saveAll(String saveDir , boolean isModifyName) throws IOException {
-		File file = new File(getFullPath(saveDir));
+		/*File file = new File(getFullPath(saveDir));
 		if (!file.exists()) {
 			file.mkdirs();
-		}
+		}*/
 		Map<String, String> names = new HashMap<String, String>();
 		if (this.files.size() > 0) {
 			// 取得全部的key
@@ -216,15 +217,19 @@ class DefaultFileUploadAdvice implements FileUploadAdvice {
 				}else {
 					fileName = item.getName();
 				}
+				String formatName = FileFormatHelper.getFormat(item.getName().split("\\.")[1]);
+				File file = new File(getFullPath(saveDir + "/" + formatName));
+				if (!file.exists()) {
+					file.mkdirs();
+				}
 				// 重新拼凑出新的路径
-				saveFile = new File(getFullPath(saveDir) + "/" + fileName);
+				saveFile = new File(file.getAbsolutePath() + "/" + fileName);
 				// 保存生成后的文件
 				names.put(item.getFieldName(), saveFile.getAbsolutePath());
 				// 将此加入到参数列表当中
 				this.params.put(
 						item.getFieldName(),
-						CollectionUtil.convertObjectToList(saveDir
-								+ "/" + fileName));
+						CollectionUtil.convertObjectToList(saveFile.getAbsolutePath()));
 				try {
 					ips = item.getInputStream();
 					ops = new FileOutputStream(saveFile); // 定义输出流保存文件

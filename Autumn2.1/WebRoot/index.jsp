@@ -21,10 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="User.query.do" method="post">
+    <form action="User.query.do" method="post" enctype="multipart/form-data">
     <input type="hidden" name="token" value="${token }" /><%--
     	学号：<input type="text" name="u_id" /><br>
-    	--%><input type="submit" value="Submit" />
+    	--%>
+    <input type="file" name="file" />	
+    <input type="submit" value="Submit" />
     </form>
   </body>
 </html>

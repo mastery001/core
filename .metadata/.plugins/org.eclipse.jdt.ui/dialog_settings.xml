@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
-	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
@@ -11,8 +11,8 @@
 		<item value="true" key="showtypes"/>
 	</section>
 	<section name="SourceActionDialog.constructors">
-		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="Comments"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
@@ -55,14 +55,14 @@
 	<section name="SourceActionDialog.methods">
 		<item value="false" key="SkipNull"/>
 		<item value="10" key="LimitValue"/>
-		<item value="false" key="Comments"/>
-		<item value="1" key="VisibilityModifier"/>
-		<item value="0" key="StringStyle"/>
 		<item value="0" key="ToStringTemplateSelected"/>
+		<item value="0" key="StringStyle"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="Comments"/>
 		<item value="false" key="LimitElements"/>
 		<item value="false" key="SynchronizedModifier"/>
-		<item value="false" key="FinalModifier"/>
 		<item value="true" key="IgnoreDefault"/>
+		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="ClasspathContainerSelectionPage">
 		<item value="2" key="index"/>
@@ -89,23 +89,23 @@
 		<section name="projects">
 			<section name="ToolClass">
 				<item value="E:\eclipse_work\core\ToolClass\doc" key="destdir"/>
-				<item value="E:\eclipse_work\core\ToolClass\javadoc.xml" key="antpath"/>
 				<item value="" key="href"/>
+				<item value="E:\eclipse_work\core\ToolClass\javadoc.xml" key="antpath"/>
 			</section>
 			<section name="Autumn2.1">
 				<item value="E:\practice\doc" key="destdir"/>
-				<item value="E:\eclipse_work\core\Autumn2.1\javadoc.xml" key="antpath"/>
 				<item value="file:/E:/practice/doc/" key="href"/>
+				<item value="E:\eclipse_work\core\Autumn2.1\javadoc.xml" key="antpath"/>
 			</section>
 			<section name="Autumn_002">
 				<item value="E:\eclipse_work\core\Autumn_002\doc" key="destdir"/>
-				<item value="E:\eclipse_work\core\Autumn_002\javadoc.xml" key="antpath"/>
 				<item value="" key="href"/>
+				<item value="E:\eclipse_work\core\Autumn_002\javadoc.xml" key="antpath"/>
 			</section>
 			<section name="Cache">
 				<item value="E:\eclipse_work\core\Cache\doc" key="destdir"/>
-				<item value="E:\eclipse_work\core\Cache\javadoc.xml" key="antpath"/>
 				<item value="" key="href"/>
+				<item value="E:\eclipse_work\core\Cache\javadoc.xml" key="antpath"/>
 			</section>
 		</section>
 	</section>
@@ -128,13 +128,13 @@
 	<section name="AddUnimplementedConstructorsDialog">
 		<item value="false" key="OmitCallToSuper"/>
 	</section>
-	<section name="RenameInformationPopup">
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="false" key="renameSubpackages"/>
-		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
+		<item value="false" key="updateQualifiedNames"/>
+		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateTextualMatches"/>
+	</section>
+	<section name="RenameInformationPopup">
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.text.QuickOutline">
 		<item value="false" key="GoIntoTopLevelTypeAction.isChecked"/>

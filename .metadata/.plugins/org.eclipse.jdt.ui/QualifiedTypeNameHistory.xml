@@ -13,7 +13,6 @@
 <fullyQualifiedTypeName name="org.web.service.OperateServiceExecuteAdvice"/>
 <fullyQualifiedTypeName name="org.web.access.factory.OperateServiceExecuteAdviceFactory"/>
 <fullyQualifiedTypeName name="com.sun.faces.util.CollectionsUtils"/>
-<fullyQualifiedTypeName name="tool.mastery.core.CollectionUtil"/>
 <fullyQualifiedTypeName name="org.web.dao.core.support.AbstractPoDaoAdvice"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="org.web.dao.core.ConnectionAware"/>
@@ -45,4 +44,7 @@
 <fullyQualifiedTypeName name="tool.mastery.core.StringUtil"/>
 <fullyQualifiedTypeName name="org.web.exception.DBException"/>
 <fullyQualifiedTypeName name="tool.mastery.log.Logger"/>
+<fullyQualifiedTypeName name="org.web.framework.Constant"/>
+<fullyQualifiedTypeName name="org.web.util.FileFormatHelper"/>
+<fullyQualifiedTypeName name="tool.mastery.core.CollectionUtil"/>
 </qualifiedTypeNameHistroy>
